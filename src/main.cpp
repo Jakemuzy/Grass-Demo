@@ -118,6 +118,7 @@ int main(void){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 4);    //Muliple Sample Anti Aliasing
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     int windowWidth = 1200, windowHeight = 800;
@@ -147,6 +148,7 @@ int main(void){
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // Render Settings
+    glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
     glEnable(GL_TEXTURE_3D);
@@ -155,7 +157,7 @@ int main(void){
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     World world;
-    Grass grass(100);
+    Grass grass(200);
 
     Shader shader("dependencies/shaders/terrain.vert", "dependencies/shaders/terrain.frag");
     Shader grassShader("dependencies/shaders/grass.vert", "dependencies/shaders/grass.frag");
@@ -163,7 +165,7 @@ int main(void){
     //Matrix
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 model = glm::mat4(1.0f);
-    glm::mat4 projection = projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 800.0f);
+    glm::mat4 projection = projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.01f, 800.0f);
 
     // Imgui initializiation
     IMGUI_CHECKVERSION();
